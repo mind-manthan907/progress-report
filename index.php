@@ -90,26 +90,16 @@ $CO_SCHOLASTIC_AREAS = ['WORKING EDUCATION', 'CLEANNESS', 'HEALTH & PHYSICAL EDU
             <span class="indiv-val">95%</span>
         </div>
 
-        <div class="report-container page-break student-card-<?php echo $student['id']; ?>">
+            <div class="report-container page-break student-card-<?php echo $student['id']; ?>">
             <div style="text-align: center;">
                 <div style="position: relative; width: 200px; height: 200px; margin: 0 auto 10px;">
-                    <svg viewBox="0 0 200 200">
-                        <circle cx="100" cy="100" r="95" fill="none" stroke="red" stroke-width="2"/>
-                        <circle cx="100" cy="100" r="90" fill="#1a237e"/>
-                        <circle cx="100" cy="100" r="70" fill="white"/>
-                        <path d="M100 45 L135 60 L135 100 C135 130 100 155 100 155 C100 155 65 130 65 100 L65 60 Z" fill="#1a237e"/>
-                        <text x="100" y="105" font-size="45" text-anchor="middle" fill="#ffd700" font-weight="900" font-family="serif">JP</text>
-                        <defs><path id="txtPath" d="M 100, 100 m -82, 0 a 82,82 0 1,1 164,0 a 82,82 0 1,1 -164,0" /></defs>
-                        <text font-size="11" fill="white" font-weight="900" font-family="sans-serif">
-                            <textPath xlink:href="#txtPath" startOffset="50%" text-anchor="middle">CHARKAILA KALWARI-BASTI (U.P.)</textPath>
-                        </text>
-                    </svg>
+                    <img src="logo.png" alt="J.P. Academy Logo" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
                 <h1 class="school-name">J.P. ACADEMY</h1>
                 <p class="school-address">SUARHA NEAR CHAKAILA KALWARI, DISTT- BASTI. (U.P.)</p>
                 <div class="report-title-box">PROGRESS REPORT<br>ACADEMIC YEAR- <?php echo $student['academic_year'] ?? $school_details['year']; ?></div>
                 <div style="margin: 30px auto; width: 90%; border: 3px solid #1a237e; overflow: hidden; background: #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.15); border-radius: 15px;">
-                    <div style="height: 450px; background: url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 20px;">
+                    <div style="height: 450px; background: url('./school.jpeg') center/cover; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 20px;">
                         <div style="background: rgba(26, 35, 126, 0.85); color: white; padding: 10px 30px; border-radius: 50px; font-size: 24px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;">J.P. ACADEMY CAMPUS</div>
                     </div>
                 </div>

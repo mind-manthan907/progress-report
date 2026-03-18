@@ -27,17 +27,7 @@ if (isset($_POST['login'])) {
 <body class="login-wrapper">
     <div class="login-box">
         <div style="text-align: center; margin-bottom: 20px;">
-             <svg viewBox="0 0 200 200" width="120">
-                    <circle cx="100" cy="100" r="95" fill="none" stroke="red" stroke-width="2"/>
-                    <circle cx="100" cy="100" r="90" fill="#1a237e"/>
-                    <circle cx="100" cy="100" r="70" fill="white"/>
-                    <path d="M100 45 L135 60 L135 100 C135 130 100 155 100 155 C100 155 65 130 65 100 L65 60 Z" fill="#1a237e"/>
-                    <text x="100" y="105" font-size="45" text-anchor="middle" fill="#ffd700" font-weight="900" font-family="serif">JP</text>
-                    <defs><path id="txtPath" d="M 100, 100 m -82, 0 a 82,82 0 1,1 164,0 a 82,82 0 1,1 -164,0" /></defs>
-                    <text font-size="11" fill="white" font-weight="900" font-family="sans-serif">
-                        <textPath xlink:href="#txtPath" startOffset="50%" text-anchor="middle">CHARKAILA KALWARI-BASTI (U.P.)</textPath>
-                    </text>
-                </svg>
+            <img src="logo.png" alt="J.P. Academy Logo" style="width: 120px; height: 120px; object-fit: contain;">
         </div>
         <h2 style="text-align: center; color: var(--primary); margin-bottom: 25px;">Admin Login</h2>
         <?php if ($error): ?>

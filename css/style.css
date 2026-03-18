@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@900&family=Inter:wght@400;700;800&display=swap');
+
+:root {
+    --primary: #1a237e;
+    --secondary: #e91e63;
+    --bg: #f8f9fa;
+    --card-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    --border-radius: 12px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: #1a1a1a; overflow-x: hidden; width: 100%; }
+
+/* --- REPORT CARD STYLES (EXACT PDF MATCH) --- */
+.report-container {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 35px;
+    margin: 20px auto;
+    background: white;
+    border: 3px solid red;
+    outline: 8px solid red;
+    outline-offset: -18px; /* Precise gap from PDF */
+    position: relative;
+    font-family: 'Crimson Pro', serif;
+}
+
+.school-name { 
+    color: #e53935; 
+    font-size: 100px; 
+    font-weight: 900; 
+    text-align: center; 
+    margin: 5px 0; 
+    line-height: 0.9;
+    letter-spacing: -2px;
+    font-family: 'Crimson Pro', serif;
+}
+
+.school-address { 
+    color: #1a237e; 
+    font-size: 24px; 
+    font-weight: 800; 
+    text-align: center; 
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.report-title-box { 
+    background: linear-gradient(to bottom, #f8bbd0, #e91e63); 
+    color: #00bcd4; 
+    padding: 12px; 
+    text-align: center; 
+    width: 85%; 
+    margin: 20px auto; 
+    font-weight: 900; 
+    font-size: 28px;
+    border: 1px solid #999;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+.section-header { 
+    text-align: center; 
+    font-weight: 900; 
+    font-size: 32px; 
+    border-bottom: 3px solid black; 
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.student-details-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+.student-details-table td { border: 2.5px solid black; padding: 10px; font-weight: 900; font-size: 18px; }
+
+.marks-table { width: 100%; border-collapse: collapse; margin-top: -1px; }
+.marks-table th, .marks-table td { 
+    border: 2.5px solid black; 
+    text-align: center; 
+    padding: 6px 4px; 
+    font-size: 14px; 
+    font-weight: 900;
+}
+.marks-table th { background: #fff; line-height: 1.2; }
+
+.grading-info-table { width: 100%; border-collapse: collapse; margin-top: -1px; }
+.grading-info-table td { border: 2.5px solid black; padding: 5px; font-weight: 900; font-size: 14px; }
+
+.signature-row { 
+    display: flex; 
+    justify-content: space-between; 
+    margin-top: 70px; 
+    font-weight: 900; 
+    font-size: 20px;
+    padding: 0 5px;
+}
+
+/* Admin UI Components */
+.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 15px; }
+.nav-header { background: var(--primary); color: white; padding: 1rem; display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.card { background: white; border-radius: var(--border-radius); box-shadow: var(--card-shadow); padding: 20px; margin-bottom: 20px; width: 100%; }
+.btn { padding: 8px 16px; border-radius: 8px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 6px; }
+.btn-success { background: #2e7d32; color: white; }
+.btn-danger { background: #d32f2f; color: white; }
+
+/* Login Page Styles */
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a237e 0%, #3949ab 100%);
+}
+
+.login-box {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #444;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+.btn-view {
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-view:hover {
+    background: #0d1642;
+}
+
+@media screen and (max-width: 768px) {
+    .desktop-table { display: none; }
+    .report-container { transform: scale(0.4); transform-origin: top left; margin-bottom: -550px; }
+}
+
+@media print {
+    body { background: white; padding: 0; }
+    .no-print-header { display: none !important; }
+    .report-container { transform: none !important; margin: 0; box-shadow: none; border: 3px solid red; outline: 8px solid red; }
+    .page-break { page-break-after: always; }
+}

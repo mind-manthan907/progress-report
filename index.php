@@ -57,12 +57,9 @@ $CO_SCHOLASTIC_AREAS = ['WORKING EDUCATION', 'CLEANNESS', 'HEALTH & PHYSICAL EDU
                 box-shadow: none !important; 
                 border: 3.5px solid red !important; 
                 outline: 8px solid red !important;
-                padding: 30px !important;
-                height: 297mm !important;
+                padding: 25px !important;
                 min-height: 297mm !important;
-                max-height: 297mm !important;
                 width: 210mm !important;
-                overflow: hidden !important;
                 position: relative;
                 box-sizing: border-box !important;
                 page-break-after: always !important;
@@ -81,7 +78,16 @@ $CO_SCHOLASTIC_AREAS = ['WORKING EDUCATION', 'CLEANNESS', 'HEALTH & PHYSICAL EDU
             display: inline-flex; align-items: center; gap: 10px; margin-bottom: 5px;
             border: 1px solid #ccc; font-size: 12px; font-weight: bold;
         }
-        .report-container { transform-origin: top center; transition: transform 0.2s; margin-top: 0 !important; }
+        .report-container { 
+            transform-origin: top center; 
+            transition: transform 0.2s; 
+            margin: 0 auto !important; 
+            display: flex; 
+            flex-direction: column;
+            background: white;
+            box-sizing: border-box !important;
+            min-height: 297mm;
+        }
         .dotted-line { border-bottom: 2px dotted black; }
     </style>
 </head>
@@ -134,18 +140,19 @@ $CO_SCHOLASTIC_AREAS = ['WORKING EDUCATION', 'CLEANNESS', 'HEALTH & PHYSICAL EDU
                 <div style="margin: 10px auto; width: 90%; border: 3px solid #1a237e; overflow: hidden; background: #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.15); border-radius: 15px; flex-grow: 1; min-height: 350px;">
                     <img src="school.jpeg" style="width: 100%; height: 100%; object-fit: cover; display: block;">
                     <div style="position: absolute; bottom: 20px; left: 0; right: 0; display: flex; justify-content: center;">
-                        <div style="background: rgba(26, 35, 126, 0.85); color: white; padding: 10px 30px; border-radius: 50px; font-size: 24px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;">J.P. ACADEMY CAMPUS</div>
                     </div>
                 </div>
 
-                <div class="footer-contact" style="display: flex; justify-content: center; align-items: center; gap: 15px; padding-top: 10px;">
-                    <span style="font-size: 20px; color: #1a237e; font-weight: 900;">For Inquiry:</span>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35">
-                    <span style="font-size: 28px; color: #333; font-weight: 900; letter-spacing: 0px; font-family: sans-serif;"><?php echo implode(', ', $school_details['contacts']); ?></span>
+                <div class="footer-contact" style="display: flex; justify-content: center; align-items: center; gap: 6px; padding-top: 8px;">
+                    <span style="font-size: 24px; color: #1a237e; font-weight: 900; line-height: 1; margin: 0;">For Inquiry:</span>
+                    <div style="display: flex; align-items: center;"> 
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="30" style="display: block; flex-shrink: 0; margin-right: 4px;">
+                        <span style="font-size: 24px; color: #333; font-weight: 900; letter-spacing: 0.3px; font-family: sans-serif; line-height: 1;"><?php echo implode(', ', $school_details['contacts']); ?></span>
+                    </div>
                 </div>
                 
-                <div style="font-size: 12px; color: #999; text-align: right; margin-top: 5px;">
-                    Student: <?php echo strtoupper($student['name']); ?> | Roll: <?php echo $student['roll_no']; ?> | Page: 1
+                <div style="font-size: 12px; color: #999; text-align: right; margin-top: 15px;">
+                    Student: <?php echo strtoupper($student['name']); ?> | Roll: <?php echo $student['roll_no']; ?>
                 </div>
             </div>
         </div>
@@ -155,21 +162,21 @@ $CO_SCHOLASTIC_AREAS = ['WORKING EDUCATION', 'CLEANNESS', 'HEALTH & PHYSICAL EDU
             <div class="section-header" style="font-size: 28px; margin-bottom: 8px;">STUDENTS DETAILS</div>
             <div style="text-align: center; font-size: 24px; font-weight: 900; margin-bottom: 8px;">CLASS :- <?php echo $student['class_display']; ?></div>
             
-            <table class="student-details-table" style="margin-bottom: 10px;">
+            <table class="student-details-table" style="margin-bottom: 8px;">
                 <tr>
-                    <td width="15%" style="padding: 8px; font-size: 18px;">ROLL NO</td>
-                    <td width="20%" style="padding: 8px; font-size: 18px; font-weight: 900;"><?php echo $student['roll_no']; ?></td>
-                    <td width="15%" style="padding: 8px; font-size: 18px;">SECTION</td>
-                    <td width="15%" style="padding: 8px; font-size: 18px; font-weight: 900;"><?php echo $student['section']; ?></td>
-                    <td width="15%" style="padding: 8px; font-size: 18px;">ATTENDANCE</td>
-                    <td width="20%" style="padding: 8px; font-size: 18px; font-weight: 900;"><?php echo ($student['attendance'] ?? '-') . '/' . ($student['total_days'] ?? '-'); ?></td>
+                    <td width="15%" style="padding: 6px; font-size: 17px;">ROLL NO</td>
+                    <td width="20%" style="padding: 6px; font-size: 17px; font-weight: 900;"><?php echo $student['roll_no']; ?></td>
+                    <td width="15%" style="padding: 6px; font-size: 17px;">SECTION</td>
+                    <td width="15%" style="padding: 6px; font-size: 17px; font-weight: 900;"><?php echo $student['section']; ?></td>
+                    <td width="15%" style="padding: 6px; font-size: 17px;">ATTENDANCE</td>
+                    <td width="20%" style="padding: 6px; font-size: 17px; font-weight: 900;"><?php echo ($student['attendance'] ?? '-') . '/' . ($student['total_days'] ?? '-'); ?></td>
                 </tr>
-                <tr><td style="padding: 8px; font-size: 18px;">STUDENT'S NAME</td><td colspan="5" style="padding: 8px; font-size: 18px; font-weight: 900;"><?php echo strtoupper($student['name']); ?></td></tr>
-                <tr><td style="padding: 8px; font-size: 18px;">FATHER'S NAME</td><td colspan="5" style="padding: 8px; font-size: 18px; font-weight: 900;"><?php echo strtoupper($student['father_name']); ?></td></tr>
-                <tr><td style="padding: 8px; font-size: 18px;">ADDRESS</td><td colspan="5" style="padding: 8px; font-size: 18px; font-weight: 900;"><?php echo strtoupper($student['address']); ?></td></tr>
+                <tr><td style="padding: 6px; font-size: 17px;">STUDENT'S NAME</td><td colspan="5" style="padding: 6px; font-size: 17px; font-weight: 900;"><?php echo strtoupper($student['name']); ?></td></tr>
+                <tr><td style="padding: 6px; font-size: 17px;">FATHER'S NAME</td><td colspan="5" style="padding: 6px; font-size: 17px; font-weight: 900;"><?php echo strtoupper($student['father_name']); ?></td></tr>
+                <tr><td style="padding: 6px; font-size: 17px;">ADDRESS</td><td colspan="5" style="padding: 6px; font-size: 17px; font-weight: 900;"><?php echo strtoupper($student['address']); ?></td></tr>
             </table>
 
-            <div style="text-align: center; font-size: 18px; font-weight: 900; border: 2.5px solid black; padding: 6px; margin: 5px 0; background: #fff;">ACHIEVEMENT RECORD OF ANNUAL-EXAMINATION- (<?php echo $student['academic_year'] ?? $school_details['year']; ?>)</div>
+            <div style="text-align: center; font-size: 17px; font-weight: 900; border: 2.5px solid black; padding: 5px; margin: 4px 0; background: #fff;">ACHIEVEMENT RECORD OF ANNUAL-EXAMINATION- (<?php echo $student['academic_year'] ?? $school_details['year']; ?>)</div>
             
             <table class="marks-table">
                 <thead>
@@ -284,6 +291,12 @@ $CO_SCHOLASTIC_AREAS = ['WORKING EDUCATION', 'CLEANNESS', 'HEALTH & PHYSICAL EDU
                 </div>
 
                 <div style="display: flex; justify-content: space-between; font-weight: 900; font-size: 16px; padding: 25px 10px 5px; position: relative;">
+                    <div style="text-align: center; position: relative; width: 140px;">
+                        <div style="border: 1px dashed #bbb; width: 70px; height: 70px; border-radius: 50%; position: absolute; top: -80px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; justify-content: center; font-size: 9px; color: #bbb; font-weight: normal;">School Seal</div>
+                        <div style="border-top: 2px solid black; padding-top: 5px;">Sign Of Principal</div>
+                        <div style="font-size: 13px; font-weight: normal; margin-top: 2px;"><?php echo htmlspecialchars($student['principal_name'] ?? ''); ?></div>
+                    </div>
+
                     <div style="text-align: center; min-width: 140px;">
                         <div style="border-top: 2px solid black; padding-top: 5px;">Sign Of Parent</div>
                     </div>
@@ -291,12 +304,6 @@ $CO_SCHOLASTIC_AREAS = ['WORKING EDUCATION', 'CLEANNESS', 'HEALTH & PHYSICAL EDU
                     <div style="text-align: center; min-width: 140px;">
                         <div style="border-top: 2px solid black; padding-top: 5px;">Sign Of Class Teacher</div>
                         <div style="font-size: 13px; font-weight: normal; margin-top: 2px;"><?php echo htmlspecialchars($student['teacher_name'] ?? ''); ?></div>
-                    </div>
-                    
-                    <div style="text-align: center; position: relative; width: 140px;">
-                        <div style="border: 1px dashed #bbb; width: 70px; height: 70px; border-radius: 50%; position: absolute; top: -80px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; justify-content: center; font-size: 9px; color: #bbb; font-weight: normal;">School Seal</div>
-                        <div style="border-top: 2px solid black; padding-top: 5px;">Sign Of Principal</div>
-                        <div style="font-size: 13px; font-weight: normal; margin-top: 2px;"><?php echo htmlspecialchars($student['principal_name'] ?? ''); ?></div>
                     </div>
                 </div>
             </div>

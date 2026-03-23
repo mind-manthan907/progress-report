@@ -15,15 +15,16 @@ if (!$student) {
         'academic_year' => $school_details['year'],
         'name' => '', 'father_name' => '', 'address' => '', 'marks' => [],
         'co_scholastic' => ['WORKING EDUCATION' => '', 'CLEANNESS' => '', 'HEALTH & PHYSICAL EDUCATION' => '', 'DISCIPLINE/ BEHAVIOUR' => ''],
-        'remarks' => '', 'promoted_to' => '', 'date_of_issue' => date('d/m/Y'), 'printed' => false, 'manual_rank' => ''
+        'remarks' => '', 'promoted_to' => '', 'date_of_issue' => date('d/m/Y'), 'printed' => false, 'manual_rank' => '',
+        'total_days' => '', 'attendance' => '', 'teacher_name' => '', 'principal_name' => ''
     ];
 }
 
 if (isset($_POST['save'])) {
     $data = $_POST;
     $new_student = $student;
-    $fields = ['roll_no', 'section', 'class_display', 'academic_year', 'name', 'father_name', 'address', 'remarks', 'promoted_to', 'date_of_issue', 'manual_rank'];
-    foreach ($fields as $f) { $new_student[$f] = $data[$f]; }
+    $fields = ['roll_no', 'section', 'class_display', 'academic_year', 'name', 'father_name', 'address', 'remarks', 'promoted_to', 'date_of_issue', 'manual_rank', 'total_days', 'attendance', 'teacher_name', 'principal_name'];
+    foreach ($fields as $f) { $new_student[$f] = $data[$f] ?? ''; }
     $new_student['class_type'] = $data['class_type'];
     
     $new_marks = [];
@@ -102,17 +103,17 @@ if (isset($_POST['save'])) {
                 <h3>Basic Details</h3>
                 <div class="grid-row">
                     <div class="grid-item"><label>Class Format</label><select name="class_type" onchange="changeTemplate(this.value)"><?php foreach($MASTER_SUBJECTS as $ctype=>$subs){ $sel=($ctype==$cur_class)?'selected':''; echo "<option value='$ctype' $sel>$ctype</option>"; } ?></select></div>
-                    <div class="grid-item"><label>Class Display Name</label><input type="text" name="class_display" value="<?php echo $student['class_display']; ?>" required></div>
-                    <div class="grid-item"><label>Academic Year</label><input type="text" name="academic_year" value="<?php echo $student['academic_year'] ?? $school_details['year']; ?>" required></div>
+                    <div class="grid-item"><label>Class Display Name</label><input type="text" name="class_display" value="<?php echo htmlspecialchars($student['class_display']); ?>" required></div>
+                    <div class="grid-item"><label>Academic Year</label><input type="text" name="academic_year" value="<?php echo htmlspecialchars($student['academic_year'] ?? $school_details['year']); ?>" required></div>
                 </div>
                 <div class="grid-row">
-                    <div class="grid-item"><label>Roll No</label><input type="text" name="roll_no" value="<?php echo $student['roll_no']; ?>" required></div>
-                    <div class="grid-item"><label>Section</label><input type="text" name="section" value="<?php echo $student['section']; ?>" required></div>
-                    <div class="grid-item"><label>Student's Name</label><input type="text" name="name" value="<?php echo $student['name']; ?>" required></div>
+                    <div class="grid-item"><label>Roll No</label><input type="text" name="roll_no" value="<?php echo htmlspecialchars($student['roll_no']); ?>" required></div>
+                    <div class="grid-item"><label>Section</label><input type="text" name="section" value="<?php echo htmlspecialchars($student['section']); ?>" required></div>
+                    <div class="grid-item"><label>Student's Name</label><input type="text" name="name" value="<?php echo htmlspecialchars($student['name']); ?>" required></div>
                 </div>
                 <div class="grid-row">
-                    <div class="grid-item"><label>Father's Name</label><input type="text" name="father_name" value="<?php echo $student['father_name']; ?>" required></div>
-                    <div class="grid-item" style="flex: 2;"><label>Address</label><input type="text" name="address" value="<?php echo $student['address']; ?>" required></div>
+                    <div class="grid-item"><label>Father's Name</label><input type="text" name="father_name" value="<?php echo htmlspecialchars($student['father_name']); ?>" required></div>
+                    <div class="grid-item" style="flex: 2;"><label>Address</label><input type="text" name="address" value="<?php echo htmlspecialchars($student['address']); ?>" required></div>
                 </div>
             </div>
 
@@ -147,18 +148,24 @@ if (isset($_POST['save'])) {
             <div class="card-box" style="margin-top: 20px;">
                 <h3>Other Info & Co-Scholastic</h3>
                 <div class="grid-row">
-                    <div class="grid-item"><label>Rank (Manual)</label><input type="text" name="manual_rank" placeholder="e.g. 1st or I" value="<?php echo $student['manual_rank'] ?? ''; ?>"></div>
-                    <div class="grid-item"><label>Remarks</label><input type="text" name="remarks" value="<?php echo $student['remarks']; ?>"></div>
-                    <div class="grid-item"><label>Promoted To</label><input type="text" name="promoted_to" value="<?php echo $student['promoted_to']; ?>"></div>
+                    <div class="grid-item"><label>Rank (Manual)</label><input type="text" name="manual_rank" placeholder="e.g. 1st or I" value="<?php echo htmlspecialchars($student['manual_rank'] ?? ''); ?>"></div>
+                    <div class="grid-item"><label>Total Working Days</label><input type="text" name="total_days" value="<?php echo htmlspecialchars($student['total_days'] ?? ''); ?>"></div>
+                    <div class="grid-item"><label>Attendance</label><input type="text" name="attendance" value="<?php echo htmlspecialchars($student['attendance'] ?? ''); ?>"></div>
                 </div>
                 <div class="grid-row">
-                    <div class="grid-item"><label>Date of Issue</label><input type="text" name="date_of_issue" value="<?php echo $student['date_of_issue']; ?>"></div>
-                    <div class="grid-item"><label>Working Edu.</label><input type="text" name="cs_we" value="<?php echo $student['co_scholastic']['WORKING EDUCATION'] ?? ''; ?>"></div>
-                    <div class="grid-item"><label>Cleanness</label><input type="text" name="cs_cl" value="<?php echo $student['co_scholastic']['CLEANNESS'] ?? ''; ?>"></div>
+                    <div class="grid-item"><label>Class Teacher Name</label><input type="text" name="teacher_name" value="<?php echo htmlspecialchars($student['teacher_name'] ?? ''); ?>"></div>
+                    <div class="grid-item"><label>Principal Name</label><input type="text" name="principal_name" value="<?php echo htmlspecialchars($student['principal_name'] ?? ''); ?>"></div>
+                    <div class="grid-item"><label>Date of Issue</label><input type="text" name="date_of_issue" value="<?php echo htmlspecialchars($student['date_of_issue']); ?>"></div>
                 </div>
                 <div class="grid-row">
-                    <div class="grid-item"><label>Health & PE</label><input type="text" name="cs_hp" value="<?php echo $student['co_scholastic']['HEALTH & PHYSICAL EDUCATION'] ?? ''; ?>"></div>
-                    <div class="grid-item"><label>Discipline</label><input type="text" name="cs_db" value="<?php echo $student['co_scholastic']['DISCIPLINE/ BEHAVIOUR'] ?? ''; ?>"></div>
+                    <div class="grid-item"><label>Remarks</label><input type="text" name="remarks" value="<?php echo htmlspecialchars($student['remarks']); ?>"></div>
+                    <div class="grid-item"><label>Promoted To</label><input type="text" name="promoted_to" value="<?php echo htmlspecialchars($student['promoted_to']); ?>"></div>
+                </div>
+                <div class="grid-row">
+                    <div class="grid-item"><label>Working Edu.</label><input type="text" name="cs_we" value="<?php echo htmlspecialchars($student['co_scholastic']['WORKING EDUCATION'] ?? ''); ?>"></div>
+                    <div class="grid-item"><label>Cleanness</label><input type="text" name="cs_cl" value="<?php echo htmlspecialchars($student['co_scholastic']['CLEANNESS'] ?? ''); ?>"></div>
+                    <div class="grid-item"><label>Health & PE</label><input type="text" name="cs_hp" value="<?php echo htmlspecialchars($student['co_scholastic']['HEALTH & PHYSICAL EDUCATION'] ?? ''); ?>"></div>
+                    <div class="grid-item"><label>Discipline</label><input type="text" name="cs_db" value="<?php echo htmlspecialchars($student['co_scholastic']['DISCIPLINE/ BEHAVIOUR'] ?? ''); ?>"></div>
                 </div>
             </div>
 

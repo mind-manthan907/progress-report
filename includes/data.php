@@ -20,21 +20,21 @@ $MASTER_SUBJECTS = [
     '4-7' => ['ENGLISH', 'MATHS', 'SCIENCE', 'S.ST.', 'HINDI', 'COMPUTER', 'G.K.', 'DRAWING'],
     '1-3' => ['ENGLISH', 'MATHS', 'E.V.S', 'CONVERSATION', 'HINDI', 'COMPUTER', 'G.K.', 'DRAWING'],
     'N-U' => [
-        '1-ENGLISH' => ['is_main' => true], 
-        'A- READING' => ['parent' => '1-ENGLISH'], 
-        'B- TRANS CRIPTION' => ['parent' => '1-ENGLISH'], 
-        'C-DICTATION' => ['parent' => '1-ENGLISH'],
+        '1- ENGLISH' => ['is_main' => true], 
+        'A- READING' => ['parent' => '1- ENGLISH'], 
+        'B- TRANSCRIPTION' => ['parent' => '1- ENGLISH'], 
+        'C- DICTATION' => ['parent' => '1- ENGLISH'],
         '2- HINDI' => ['is_main' => true], 
         'A- READING ' => ['parent' => '2- HINDI'], 
-        'B- Trans Cription' => ['parent' => '2- HINDI'], 
-        'C-DICTATION ' => ['parent' => '2- HINDI'],
-        '3-Maths' => ['is_main' => true], 
-        'A-WRITTEN' => ['parent' => '3-Maths'], 
-        'B-ORAL' => ['parent' => '3-Maths'],
-        '4- Art' => [], 
-        '5- General Knowledge' => [], 
-        '6- Hindi Rhymes' => [], 
-        '7- English Rhymes' => []
+        'B- TRANSCRIPTION' => ['parent' => '2- HINDI'], 
+        'C- DICTATION ' => ['parent' => '2- HINDI'],
+        '3- MATHS' => ['is_main' => true], 
+        'A- WRITTEN' => ['parent' => '3- MATHS'], 
+        'B- ORAL' => ['parent' => '3- MATHS'],
+        '4- ART' => [], 
+        '5- GENERAL KNOWLEDGE' => [], 
+        '6- HINDI RHYMES' => [], 
+        '7- ENGLISH RHYMES' => []
     ]
 ];
 

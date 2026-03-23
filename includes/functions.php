@@ -18,24 +18,41 @@ function getGradingScaleText() {
 }
 
 function calculateRank($student_id, $all_students, $class_type) {
+    // Current student data
+    $current_s = null;
+    foreach($all_students as $st) if($st['id'] == $student_id) { $current_s = $st; break; }
+    if (!$current_s) return "-";
+    
+    $target_year = $current_s['academic_year'] ?? '';
+    $target_class = $current_s['class_display'] ?? '';
+
     $rank_data = [];
     foreach ($all_students as $s) {
-        if ($s['class_type'] == $class_type) {
+        // Filter by same class, same year
+        if (($s['class_display'] ?? '') == $target_class && ($s['academic_year'] ?? '') == $target_year) {
             $total_obt = 0;
-            foreach ($s['marks'] as $m) {
-                if (!isset($m['is_main'])) {
-                    $total_obt += ($m['ut1_obt'] ?? 0) + ($m['ut2_obt'] ?? 0) + ($m['hy_obt'] ?? 0) + 
-                                 ($m['ut3_obt'] ?? 0) + ($m['ut4_obt'] ?? 0) + ($m['annual_obt'] ?? 0);
-                }
+            foreach ($s['marks'] as $m_name => $m_data) {
+                // Skip if it's a main category (header) or has a parent (sub-subject in N-U)
+                // In N-U class, we only count sub-subjects, NOT the parent headers.
+                // In 4-7 class, we count all listed subjects.
+                $total_obt += (int)($m_data['ut1_obt'] ?? 0) + (int)($m_data['ut2_obt'] ?? 0) + (int)($m_data['hy_obt'] ?? 0) +
+                             (int)($m_data['ut3_obt'] ?? 0) + (int)($m_data['ut4_obt'] ?? 0) + (int)($m_data['annual_obt'] ?? 0);
             }
             $rank_data[$s['id']] = $total_obt;
         }
     }
     arsort($rank_data);
     $rank = 1;
+    $prev_marks = -1;
+    $display_rank = 1;
+    $count = 0;
     foreach ($rank_data as $id => $marks) {
-        if ($id == $student_id) return $rank;
-        $rank++;
+        $count++;
+        if ($marks < $prev_marks) {
+            $display_rank = $count;
+        }
+        if ($id == $student_id) return $display_rank;
+        $prev_marks = $marks;
     }
     return "-";
 }

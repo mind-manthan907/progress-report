@@ -4,12 +4,33 @@ require_once 'includes/data.php';
 
 $students_all = getStudents();
 
-// Get unique classes and years for filters
+// 1. Handle Deletion FIRST
+if (isset($_GET['delete'])) {
+    $id_to_delete = $_GET['delete'];
+    $filtered_students = array_filter($students_all, function($s) use ($id_to_delete) {
+        return (string)$s['id'] !== (string)$id_to_delete;
+    });
+    
+    if (count($filtered_students) < count($students_all)) {
+        saveStudents(array_values($filtered_students));
+    }
+    
+    // Preserve filters in redirect
+    $params = $_GET;
+    unset($params['delete']);
+    $redirect_url = "dashboard.php" . (!empty($params) ? "?" . http_build_query($params) : "");
+    header("Location: " . $redirect_url);
+    exit;
+}
+
+// 2. Get unique classes and years for filters
 $classes = array_unique(array_column($students_all, 'class_display'));
+sort($classes);
 $years = array_unique(array_column($students_all, 'academic_year'));
 if (empty($years)) { $years = [$school_details['year']]; }
+sort($years);
 
-// Filters
+// 3. Filters
 $f_search = $_GET['search'] ?? '';
 $f_class = $_GET['class'] ?? '';
 $f_year = $_GET['year'] ?? '';
@@ -22,21 +43,14 @@ $students = array_filter($students_all, function($s) use ($f_search, $f_class, $
     return $match;
 });
 
-// Sort by Roll Number (Numeric)
+// 4. Sort by Roll Number (Numeric)
 usort($students, function($a, $b) {
     return (int)$a['roll_no'] - (int)$b['roll_no'];
 });
 
-if (isset($_GET['delete'])) {
-    $id = $_GET['delete'];
-    $students_save = array_filter($students_all, function($s) use ($id) { return $s['id'] != $id; });
-    saveStudents(array_values($students_save));
-    header("Location: dashboard.php");
-    exit;
-}
-
 // Bulk Print Link
-$print_all_link = "index.php?" . http_build_query(['class' => $f_class, 'year' => $f_year, 'search' => $f_search, 'bulk' => 1]);
+$current_filters = ['class' => $f_class, 'year' => $f_year, 'search' => $f_search];
+$print_all_link = "index.php?" . http_build_query(array_filter($current_filters + ['bulk' => 1]));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -139,7 +153,10 @@ $print_all_link = "index.php?" . http_build_query(['class' => $f_class, 'year' =
                         <td>
                             <a href="index.php?id=<?php echo $s['id']; ?>" class="btn" style="background: #009688; color: white; padding: 5px 10px; font-size: 13px;" target="_blank"><i class="fas fa-file-invoice"></i> Result</a>
                             <a href="manage_student.php?id=<?php echo $s['id']; ?>" class="btn" style="background: orange; color: white; padding: 5px 10px; font-size: 13px;"><i class="fas fa-edit"></i> Edit</a>
-                            <a href="dashboard.php?delete=<?php echo $s['id']; ?>" class="btn" style="background: red; color: white; padding: 5px 10px; font-size: 13px;" onclick="return confirm('Delete Student?')"><i class="fas fa-trash"></i></a>
+                            <?php 
+                                $delete_url = "dashboard.php?" . http_build_query(array_merge($_GET, ['delete' => $s['id']]));
+                            ?>
+                            <a href="<?php echo $delete_url; ?>" class="btn" style="background: red; color: white; padding: 5px 10px; font-size: 13px;" onclick="return confirm('Delete Student?')"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

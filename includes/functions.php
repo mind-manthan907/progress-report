@@ -35,8 +35,8 @@ function calculateRank($student_id, $all_students, $class_type) {
                 // Skip if it's a main category (header) or has a parent (sub-subject in N-U)
                 // In N-U class, we only count sub-subjects, NOT the parent headers.
                 // In 4-7 class, we count all listed subjects.
-                $total_obt += ($m_data['ut1_obt'] ?? 0) + ($m_data['ut2_obt'] ?? 0) + ($m_data['hy_obt'] ?? 0) + 
-                             ($m_data['ut3_obt'] ?? 0) + ($m_data['ut4_obt'] ?? 0) + ($m_data['annual_obt'] ?? 0);
+                $total_obt += (int)($m_data['ut1_obt'] ?? 0) + (int)($m_data['ut2_obt'] ?? 0) + (int)($m_data['hy_obt'] ?? 0) +
+                             (int)($m_data['ut3_obt'] ?? 0) + (int)($m_data['ut4_obt'] ?? 0) + (int)($m_data['annual_obt'] ?? 0);
             }
             $rank_data[$s['id']] = $total_obt;
         }

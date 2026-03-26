@@ -5,13 +5,13 @@ require_once 'includes/data.php';
 $students = getStudents();
 $id = $_GET['id'] ?? null;
 $student = null;
-if ($id) { foreach ($students as $s) { if ($s['id'] == $id) { $student = $s; break; } } }
+if ($id) { $student = findStudentById($students, $id); }
 
 $cur_class = $_GET['class'] ?? ($student['class_type'] ?? '4-7');
 
 if (!$student) {
     $student = [
-        'id' => time(), 'roll_no' => '', 'section' => 'A', 'class_type' => $cur_class, 'class_display' => $cur_class,
+        'id' => generateStudentId($students), 'roll_no' => '', 'section' => 'A', 'class_type' => $cur_class, 'class_display' => $cur_class,
         'academic_year' => $school_details['year'],
         'name' => '', 'father_name' => '', 'address' => '', 'marks' => [],
         'co_scholastic' => ['WORKING EDUCATION' => '', 'CLEANNESS' => '', 'HEALTH & PHYSICAL EDUCATION' => '', 'DISCIPLINE/ BEHAVIOUR' => ''],
@@ -23,6 +23,7 @@ if (!$student) {
 if (isset($_POST['save'])) {
     $data = $_POST;
     $new_student = $student;
+    $new_student['id'] = $data['id'] ?? $student['id'];
     $fields = ['roll_no', 'section', 'class_display', 'academic_year', 'name', 'father_name', 'address', 'remarks', 'promoted_to', 'date_of_issue', 'manual_rank', 'total_days', 'attendance', 'teacher_name', 'principal_name'];
     foreach ($fields as $f) { $new_student[$f] = $data[$f] ?? ''; }
     $new_student['class_type'] = $data['class_type'];
@@ -50,8 +51,7 @@ if (isset($_POST['save'])) {
         'WORKING EDUCATION' => $data['cs_we'], 'CLEANNESS' => $data['cs_cl'], 
         'HEALTH & PHYSICAL EDUCATION' => $data['cs_hp'], 'DISCIPLINE/ BEHAVIOUR' => $data['cs_db']
     ];
-    if ($id) { foreach ($students as &$s) { if ($s['id'] == $id) { $s = $new_student; break; } } }
-    else { $students[] = $new_student; }
+    upsertStudent($students, $new_student);
     saveStudents($students);
     header("Location: dashboard.php");
     exit;
@@ -99,6 +99,7 @@ if (isset($_POST['save'])) {
         </div>
 
         <form action="" method="POST">
+            <input type="hidden" name="id" value="<?php echo htmlspecialchars($student['id']); ?>">
             <div class="card-box">
                 <h3>Basic Details</h3>
                 <div class="grid-row">

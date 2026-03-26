@@ -7,9 +7,7 @@ $students_all = getStudents();
 // 1. Handle Deletion FIRST
 if (isset($_GET['delete'])) {
     $id_to_delete = $_GET['delete'];
-    $filtered_students = array_filter($students_all, function($s) use ($id_to_delete) {
-        return (string)$s['id'] !== (string)$id_to_delete;
-    });
+    $filtered_students = deleteStudentById($students_all, $id_to_delete);
     
     if (count($filtered_students) < count($students_all)) {
         saveStudents(array_values($filtered_students));

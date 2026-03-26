@@ -52,5 +52,35 @@ function saveStudents($students) {
     file_put_contents($path, json_encode(array_values($students), JSON_PRETTY_PRINT));
 }
 
+function generateStudentId($students) {
+    $id = (int) floor(microtime(true) * 1000);
+    $existing = array_map(function($s) { return (string)($s['id'] ?? ''); }, $students);
+    while (in_array((string)$id, $existing, true)) { $id++; }
+    return $id;
+}
+
+function findStudentById($students, $id) {
+    foreach ($students as $s) { if ((string)($s['id'] ?? '') === (string)$id) { return $s; } }
+    return null;
+}
+
+function upsertStudent(&$students, $student) {
+    $found = false;
+    foreach ($students as $i => $s) {
+        if ((string)($s['id'] ?? '') === (string)($student['id'] ?? '')) {
+            $students[$i] = $student;
+            $found = true;
+            break;
+        }
+    }
+    if (!$found) { $students[] = $student; }
+}
+
+function deleteStudentById($students, $id) {
+    return array_values(array_filter($students, function($s) use ($id) {
+        return (string)($s['id'] ?? '') !== (string)$id;
+    }));
+}
+
 $students = getStudents();
 ?>

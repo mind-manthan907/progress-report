@@ -101,8 +101,9 @@ $CO_SCHOLASTIC_AREAS = ['WORKING EDUCATION', 'CLEANNESS', 'HEALTH & PHYSICAL EDU
         .marksheet-page .details-header { border: 2.5px solid #000; text-align: center; font-weight: 900; }
         .marksheet-page .details-title { border-bottom: 2.5px solid #000; font-size: 19px; padding: 5px 0; }
         .marksheet-page .details-class { font-size: 16px; padding: 4px 0; }
-        .marksheet-page .student-details-table { margin-bottom: 6px !important; border-collapse: collapse; }
+        .marksheet-page .student-details-table { margin-bottom: 6px !important; border-collapse: collapse; border-spacing: 0; }
         .marksheet-page .student-details-table td { padding: 5px 8px !important; font-size: 13px !important; font-weight: 900; border: 2.5px solid #000; }
+        .marksheet-page .marks-table { border-collapse: collapse; border-spacing: 0; }
         .marksheet-page .marks-table th,
         .marksheet-page .marks-table td { padding: 3px 3px !important; font-size: 11.5px !important; font-weight: 900; border: 2.5px solid #000; }
         .marksheet-page .marks-table th { padding: 3px 2px !important; font-size: 10.5px !important; border: 2.5px solid #000; }
@@ -114,9 +115,10 @@ $CO_SCHOLASTIC_AREAS = ['WORKING EDUCATION', 'CLEANNESS', 'HEALTH & PHYSICAL EDU
             line-height: 1.25; 
             min-height: 92px;
         }
+        .marksheet-page .summary-table { border-collapse: collapse; border-spacing: 0; }
         .marksheet-page .summary-table td { border: 2.5px solid #000; padding: 6px; font-weight: 900; font-size: 12px; }
         .marksheet-page .co-head { border: 2.5px solid #000; text-align: center; font-weight: 900; font-size: 12px; padding: 5px; }
-        .marksheet-page .co-table { border-collapse: collapse; width: 100%; min-height: 120px; }
+        .marksheet-page .co-table { border-collapse: collapse; border-spacing: 0; width: 100%; min-height: 120px; }
         .marksheet-page .co-table tr { height: 26px; }
         .marksheet-page .co-table td { border: 2.5px solid #000; padding: 6px 10px; font-weight: 900; font-size: 12px; }
         .marksheet-page .co-table td:first-child { width: 50%; }
@@ -148,12 +150,12 @@ $CO_SCHOLASTIC_AREAS = ['WORKING EDUCATION', 'CLEANNESS', 'HEALTH & PHYSICAL EDU
 
         /* N-U template fill tuning */
         .marksheet-NU .marks-table { table-layout: fixed; }
-        .marksheet-NU .marks-table tr { height: 34px; }
-        .marksheet-NU .marks-table th { height: 36px; }
-        .marksheet-NU .co-table tr { height: 40px; }
-        .marksheet-NU .grading-box { min-height: 145px; }
-        .marksheet-NU .summary-table td { height: 36px; }
-        .marksheet-NU .remarks-box { min-height: 135px; }
+        .marksheet-NU .marks-table tr { height: 24px; }
+        .marksheet-NU .marks-table th { height: 26px; }
+        .marksheet-NU .co-table tr { height: 28px; }
+        .marksheet-NU .grading-box { min-height: 110px; }
+        .marksheet-NU .summary-table td { height: 26px; }
+        .marksheet-NU .remarks-box { min-height: 100px; }
     </style>
 </head>
 <body>

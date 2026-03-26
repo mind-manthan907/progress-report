@@ -15,14 +15,19 @@ body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: #1a
 .report-container {
     width: 210mm;
     min-height: 297mm;
-    padding: 35px;
-    margin: 20px auto;
+    padding: 20px;
+    margin: 22px auto;
     background: white;
-    border: 3px solid red;
-    outline: 8px solid red;
-    outline-offset: -18px; /* Precise gap from PDF */
+    border: 2px solid red; /* inner thick */
+    outline: none;
+    /* 3-line border with visible gaps */
+    box-shadow: 
+        0 0 0 3px #fff,   /* gap 1 */
+        0 0 0 5px red,    /* middle thick */
+        0 0 0 7px #fff,   /* gap 2 */
+        0 0 0 8px red;    /* outer thin */
     position: relative;
-    font-family: 'Crimson Pro', serif;
+    font-family: "Times New Roman", serif;
 }
 
 .school-name { 
@@ -166,6 +171,16 @@ body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: #1a
 @media print {
     body { background: white; padding: 0; }
     .no-print-header { display: none !important; }
-    .report-container { transform: none !important; margin: 0; box-shadow: none; border: 3px solid red; outline: 8px solid red; }
+    .report-container { 
+        transform: none !important; 
+        margin: 8mm auto 0; 
+        border: 2px solid red; 
+        outline: none; 
+        box-shadow: 
+            0 0 0 3px #fff,
+            0 0 0 5px red,
+            0 0 0 7px #fff,
+            0 0 0 8px red; 
+    }
     .page-break { page-break-after: always; }
 }

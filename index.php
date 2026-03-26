@@ -55,8 +55,9 @@ $CO_SCHOLASTIC_AREAS = ['WORKING EDUCATION', 'CLEANNESS', 'HEALTH & PHYSICAL EDU
             .report-container { 
                 margin: 0 auto !important; 
                 box-shadow: none !important; 
-                border: 3.5px solid red !important; 
-                outline: 8px solid red !important;
+                border: 1px solid red !important; 
+                outline: none !important;
+                box-shadow: 0 0 0 3px red, 0 0 0 5px red !important;
                 padding: 25px !important;
                 min-height: 297mm !important;
                 width: 210mm !important;
@@ -90,11 +91,69 @@ $CO_SCHOLASTIC_AREAS = ['WORKING EDUCATION', 'CLEANNESS', 'HEALTH & PHYSICAL EDU
         }
         .dotted-line { border-bottom: 2px dotted black; }
         .marksheet-page { position: relative; min-height: 297mm !important; }
-        .marksheet-page .section-header { font-size: 24px !important; margin-bottom: 4px !important; }
-        .marksheet-page .student-details-table { margin-bottom: 6px !important; }
-        .marksheet-page .student-details-table td { padding: 4px !important; font-size: 14px !important; }
+        .marksheet-page { 
+            padding: 14px 14px 10px !important; 
+            border: none; 
+            outline: none !important; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        .marksheet-page .details-header { border: 2.5px solid #000; text-align: center; font-weight: 900; }
+        .marksheet-page .details-title { border-bottom: 2.5px solid #000; font-size: 19px; padding: 5px 0; }
+        .marksheet-page .details-class { font-size: 16px; padding: 4px 0; }
+        .marksheet-page .student-details-table { margin-bottom: 6px !important; border-collapse: collapse; }
+        .marksheet-page .student-details-table td { padding: 5px 8px !important; font-size: 13px !important; font-weight: 900; border: 2.5px solid #000; }
         .marksheet-page .marks-table th,
-        .marksheet-page .marks-table td { padding: 2px 3px !important; font-size: 12px !important; }
+        .marksheet-page .marks-table td { padding: 3px 3px !important; font-size: 11.5px !important; font-weight: 900; border: 2.5px solid #000; }
+        .marksheet-page .marks-table th { padding: 3px 2px !important; font-size: 10.5px !important; border: 2.5px solid #000; }
+        .marksheet-page .grading-box { 
+            border: 2.5px solid #000; 
+            padding: 6px; 
+            font-size: 11px; 
+            font-weight: 900; 
+            line-height: 1.25; 
+            min-height: 92px;
+        }
+        .marksheet-page .summary-table td { border: 2.5px solid #000; padding: 6px; font-weight: 900; font-size: 12px; }
+        .marksheet-page .co-head { border: 2.5px solid #000; text-align: center; font-weight: 900; font-size: 12px; padding: 5px; }
+        .marksheet-page .co-table { border-collapse: collapse; width: 100%; min-height: 120px; }
+        .marksheet-page .co-table tr { height: 26px; }
+        .marksheet-page .co-table td { border: 2.5px solid #000; padding: 6px 10px; font-weight: 900; font-size: 12px; }
+        .marksheet-page .co-table td:first-child { width: 50%; }
+        .marksheet-page .co-table td:last-child { width: 50%; text-align: center; }
+        .marksheet-page .remarks-box { border: 2.5px solid #000; border-radius: 14px; padding: 14px 12px 18px; font-size: 12px; font-weight: 900; margin-top: auto; }
+        .marksheet-page .remarks-row { display: flex; gap: 8px; }
+        .marksheet-page .remarks-col { flex: 1; }
+        .marksheet-page .sign-row { display: flex; justify-content: space-between; margin-top: 18px; font-size: 12px; }
+        .marksheet-page .sign { width: 180px; text-align: center; }
+        .marksheet-page .page-fill { flex: 1; display: flex; flex-direction: column; }
+        
+        /* 4-7 template fill tuning */
+        .marksheet-47 .marks-table { table-layout: fixed; }
+        .marksheet-47 .marks-table tr { height: 32px; }
+        .marksheet-47 .marks-table th { height: 34px; }
+        .marksheet-47 .co-table tr { height: 38px; }
+        .marksheet-47 .grading-box { min-height: 135px; }
+        .marksheet-47 .summary-table td { height: 34px; }
+        .marksheet-47 .remarks-box { min-height: 125px; }
+
+        /* 1-3 template fill tuning */
+        .marksheet-13 .marks-table { table-layout: fixed; }
+        .marksheet-13 .marks-table tr { height: 32px; }
+        .marksheet-13 .marks-table th { height: 34px; }
+        .marksheet-13 .co-table tr { height: 38px; }
+        .marksheet-13 .grading-box { min-height: 135px; }
+        .marksheet-13 .summary-table td { height: 34px; }
+        .marksheet-13 .remarks-box { min-height: 125px; }
+
+        /* N-U template fill tuning */
+        .marksheet-NU .marks-table { table-layout: fixed; }
+        .marksheet-NU .marks-table tr { height: 34px; }
+        .marksheet-NU .marks-table th { height: 36px; }
+        .marksheet-NU .co-table tr { height: 40px; }
+        .marksheet-NU .grading-box { min-height: 145px; }
+        .marksheet-NU .summary-table td { height: 36px; }
+        .marksheet-NU .remarks-box { min-height: 135px; }
     </style>
 </head>
 <body>
@@ -164,42 +223,43 @@ $CO_SCHOLASTIC_AREAS = ['WORKING EDUCATION', 'CLEANNESS', 'HEALTH & PHYSICAL EDU
         </div>
 
         <!-- PAGE 2: MARKSHEET -->
-        <div class="report-container marksheet-page student-card-<?php echo $student['id']; ?>">
-            <div class="section-header" style="font-size: 24px; margin-bottom: 4px;">STUDENTS DETAILS</div>
-            <div style="text-align: center; font-size: 20px; font-weight: 900; margin-bottom: 4px;">CLASS :- <?php echo $student['class_display']; ?></div>
+        <div class="report-container marksheet-page marksheet-<?php echo str_replace('-', '', $class_type); ?> student-card-<?php echo $student['id']; ?>">
+            <div class="page-fill">
+            <div class="details-header">
+                <div class="details-title">STUDENTS DETAILS</div>
+                <div class="details-class">CLASS :- <?php echo $student['class_display']; ?></div>
+            </div>
             
             <table class="student-details-table" style="margin-bottom: 8px;">
                 <tr>
-                    <td width="15%" style="padding: 6px; font-size: 17px;">ROLL NO</td>
-                    <td width="20%" style="padding: 6px; font-size: 17px; font-weight: 900;"><?php echo $student['roll_no']; ?></td>
-                    <td width="15%" style="padding: 6px; font-size: 17px;">SECTION</td>
-                    <td width="15%" style="padding: 6px; font-size: 17px; font-weight: 900;"><?php echo $student['section']; ?></td>
-                    <td width="15%" style="padding: 6px; font-size: 17px;">ATTENDANCE</td>
-                    <td width="20%" style="padding: 6px; font-size: 17px; font-weight: 900;"><?php echo ($student['attendance'] ?? '-') . '/' . ($student['total_days'] ?? '-'); ?></td>
+                    <td width="18%">ROLL NO</td>
+                    <td width="32%"><?php echo $student['roll_no']; ?></td>
+                    <td width="18%">SECTION</td>
+                    <td width="32%"><?php echo $student['section']; ?></td>
                 </tr>
-                <tr><td style="padding: 6px; font-size: 17px;">STUDENT'S NAME</td><td colspan="5" style="padding: 6px; font-size: 17px; font-weight: 900;"><?php echo strtoupper($student['name']); ?></td></tr>
-                <tr><td style="padding: 6px; font-size: 17px;">FATHER'S NAME</td><td colspan="5" style="padding: 6px; font-size: 17px; font-weight: 900;"><?php echo strtoupper($student['father_name']); ?></td></tr>
-                <tr><td style="padding: 6px; font-size: 17px;">ADDRESS</td><td colspan="5" style="padding: 6px; font-size: 17px; font-weight: 900;"><?php echo strtoupper($student['address']); ?></td></tr>
+                <tr><td>STUDENT'S NAME</td><td colspan="3"><?php echo strtoupper($student['name']); ?></td></tr>
+                <tr><td>FATHER'S NAME</td><td colspan="3"><?php echo strtoupper($student['father_name']); ?></td></tr>
+                <tr><td>ADDRESS</td><td colspan="3"><?php echo strtoupper($student['address']); ?></td></tr>
             </table>
 
-            <div style="text-align: center; font-size: 15px; font-weight: 900; border: 2.5px solid black; padding: 4px; margin: 3px 0; background: #fff;">ACHIEVEMENT RECORD OF ANNUAL-EXAMINATION- (<?php echo $student['academic_year'] ?? $school_details['year']; ?>)</div>
+            <div style="text-align: center; font-size: 12px; font-weight: 900; border: 2.5px solid black; padding: 3px; margin: 3px 0; background: #fff;">ACHOVENMENT RECORD OF ANNUAL-EXAMINATION- (<?php echo $student['academic_year'] ?? $school_details['year']; ?>)</div>
             
             <table class="marks-table">
                 <thead>
                     <tr>
                         <th rowspan="2" width="22%" style="padding: 4px; font-size: 14px;">SUBJECT</th>
-                        <th colspan="3" style="padding: 4px; font-size: 14px;">TERM-I (100)</th>
+                        <th colspan="3" style="padding: 4px; font-size: 14px;">TERM-I (100 MARKS)</th>
                         <th rowspan="2" width="10%" style="padding: 4px; font-size: 13px;">UT-III<br>(20)</th>
-                        <th colspan="2" style="padding: 4px; font-size: 14px;">TERM-II (80)</th>
+                        <th colspan="2" style="padding: 4px; font-size: 14px;">TERM-II (100 MARKS)</th>
                         <th rowspan="2" width="10%" style="padding: 4px; font-size: 13px;">GRAND<br>TOTAL<br>(<?php echo $calc_grand_max; ?>)</th>
                         <th rowspan="2" width="8%" style="padding: 4px; font-size: 14px;">GRADE</th>
                     </tr>
                     <tr>
-                        <th width="10%" style="padding: 4px; font-size: 13px;">UT-I<br>(20)</th>
-                        <th width="10%" style="padding: 4px; font-size: 13px;">UT-II<br>(20)</th>
-                        <th width="10%" style="padding: 4px; font-size: 13px;">HY<br>(60)</th>
-                        <th width="10%" style="padding: 4px; font-size: 13px;">UT-IV<br>(20)</th>
-                        <th width="10%" style="padding: 4px; font-size: 13px;">ANNUAL<br>(60)</th>
+                        <th width="10%" style="padding: 4px; font-size: 13px;">UNIT<br>TEST-I<br>(20)</th>
+                        <th width="10%" style="padding: 4px; font-size: 13px;">UNIT<br>TEST-II<br>(20)</th>
+                        <th width="10%" style="padding: 4px; font-size: 13px;">HALF<br>YEARLY<br>(60)</th>
+                        <th width="10%" style="padding: 4px; font-size: 13px;">UNIT<br>TEST-IV<br>(20)</th>
+                        <th width="10%" style="padding: 4px; font-size: 13px;">ANNUAL<br>EXAM<br>(60)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -239,28 +299,16 @@ $CO_SCHOLASTIC_AREAS = ['WORKING EDUCATION', 'CLEANNESS', 'HEALTH & PHYSICAL EDU
                 </tbody>
             </table>
 
-            <div style="display: flex; gap: 8px; margin-top: 6px;">
+            <div style="display: flex; gap: 6px; margin-top: 4px; align-items: stretch;">
                 <div style="flex: 1.2;">
-                    <table style="width: 100%; border-collapse: collapse;">
-                        <tr>
-                            <td style="border: 2.5px solid black; vertical-align: top; padding: 0;">
-                                <div style="font-size: 10px; font-weight: 900; padding: 4px; line-height: 1.15; border-bottom: 2.5px solid black;"><?php echo getGradingScaleText(); ?></div>
-                                <div style="text-align: center; font-weight: 900; background: #f0f0f0; font-size: 14px; padding: 2px; border-bottom: 2.5px solid black;">CO-SCHOLASTIC AREAS</div>
-                                <table style="width: 100%; border-collapse: collapse;">
-                                    <?php foreach ($CO_SCHOLASTIC_AREAS as $area): $grade = $student['co_scholastic'][$area] ?? ''; ?>
-                                    <tr><td style="border: none; padding: 3px 8px; font-size: 12px; font-weight: 900;"><?php echo $area; ?></td><td style="border-left: 2.5px solid black; text-align: center; width: 62px; font-weight: 900; font-size: 14px;"><?php echo $grade; ?></td></tr>
-                                    <?php endforeach; ?>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
+                    <div class="grading-box">GRADING SCALE : A1=91-100, A2=81-90, B1=71-80, B2=61-70, C1=51-60, C2=41-50, D=33-40, E=32 AND Below (Need Improvement)</div>
                 </div>
                 <div style="flex: 0.8;">
-                    <table style="width: 100%; border-collapse: collapse;">
-                        <tr><td style="border: 2.5px solid black; padding: 6px; font-weight: 900; font-size: 14px;" width="60%">OBTAINED MARKS</td><td style="border: 2.5px solid black; padding: 6px; font-weight: 900; font-size: 16px; text-align: center;"><?php echo $has_data ? $grand_total_obt_all : ''; ?></td></tr>
-                        <tr><td style="border: 2.5px solid black; padding: 6px; font-weight: 900; font-size: 14px;">TOTAL MARKS</td><td style="border: 2.5px solid black; padding: 6px; font-weight: 900; font-size: 16px; text-align: center;"><?php echo $has_data ? $grand_total_max_all : ''; ?></td></tr>
-                        <tr><td style="border: 2.5px solid black; padding: 6px; font-weight: 900; font-size: 14px;">PERCENTAGE</td><td style="border: 2.5px solid black; padding: 6px; font-weight: 900; font-size: 16px; text-align: center;"><?php echo ($has_data && $grand_total_max_all > 0) ? number_format(($grand_total_obt_all / $grand_total_max_all) * 100, 2) . '%' : ''; ?></td></tr>
-                        <tr><td style="border: 2.5px solid black; padding: 6px; font-weight: 900; font-size: 14px;">RANK</td><td style="border: 2.5px solid black; padding: 6px; font-weight: 900; font-size: 16px; text-align: center;"><?php 
+                    <table class="summary-table" style="width: 100%; border-collapse: collapse;">
+                        <tr><td width="60%">OBTAINED MARKS</td><td style="text-align: center;"><?php echo $has_data ? $grand_total_obt_all : ''; ?></td></tr>
+                        <tr><td>TOTAL MARKS</td><td style="text-align: center;"><?php echo $has_data ? $grand_total_max_all : ''; ?></td></tr>
+                        <tr><td>PERCENTAGE</td><td style="text-align: center;"><?php echo ($has_data && $grand_total_max_all > 0) ? number_format(($grand_total_obt_all / $grand_total_max_all) * 100, 2) . '%' : ''; ?></td></tr>
+                        <tr><td>RANK</td><td style="text-align: center;"><?php 
                             if (isset($student['manual_rank']) && $student['manual_rank'] !== '') echo $student['manual_rank'];
                             else echo $has_data ? calculateRank($student['id'], $students_all, $student['class_type']) : '';
                         ?></td></tr>
@@ -268,34 +316,25 @@ $CO_SCHOLASTIC_AREAS = ['WORKING EDUCATION', 'CLEANNESS', 'HEALTH & PHYSICAL EDU
                 </div>
             </div>
 
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px; padding: 0 8px;">
-                <div style="font-size: 14px; font-weight: 900;">
-                    RESULT :
-                    <span style="font-size: 16px;">
-                        <?php
-                            $result_text = '';
-                            if ($has_data && $grand_total_max_all > 0) {
-                                $result_text = (($grand_total_obt_all / $grand_total_max_all) * 100) >= 33 ? 'PASSED' : 'FAILED';
-                            }
-                            echo $result_text;
-                        ?>
-                    </span>
-                </div>
-            </div>
+            <div class="co-head">CO-SCHOLASTIC AREAS<br>ON A3-POINTS (A, B, C) GRADING SCALE</div>
+            <table class="co-table" style="width: 100%; border-collapse: collapse;">
+                <?php foreach ($CO_SCHOLASTIC_AREAS as $area): $grade = $student['co_scholastic'][$area] ?? ''; ?>
+                <tr>
+                    <td><?php echo $area; ?></td>
+                    <td style="width: 60px; text-align: center;"><?php echo $grade; ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
 
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 18px; padding: 0 8px;">
-                <div style="text-align: center; width: 180px;">
-                    <div style="border-top: 2px solid black; padding-top: 6px; font-size: 15px; font-weight: 900;">Sign Of Principal</div>
-                    <div style="font-size: 12px; font-weight: normal; margin-top: 2px;"><?php echo htmlspecialchars($student['principal_name'] ?? ''); ?></div>
-                </div>
-                <div style="text-align: center; width: 180px;">
-                    <div style="border-top: 2px solid black; padding-top: 6px; font-size: 15px; font-weight: 900;">Sign Of Class Teacher</div>
-                    <div style="font-size: 12px; font-weight: normal; margin-top: 2px;"><?php echo htmlspecialchars($student['teacher_name'] ?? ''); ?></div>
+            <div class="remarks-box" style="text-align: left;">
+                <div>CLASS TEACHER REMARKS :- <?php echo htmlspecialchars($student['remarks'] ?? ''); ?></div>
+                <div>PROMOTED TO CLASS:- <?php echo htmlspecialchars($student['promoted_to'] ?? ''); ?></div>
+                <div>DATE OF ISSUE:- <?php echo htmlspecialchars($student['date_of_issue'] ?? ''); ?></div>
+                <div class="sign-row">
+                    <div class="sign">Sign Of Class Teacher</div>
+                    <div class="sign">Sign of Principal</div>
                 </div>
             </div>
-            
-            <div style="font-size: 11px; color: #999; text-align: right; margin-top: 10px; padding-right: 10px;">
-                Student: <?php echo strtoupper($student['name']); ?> | Roll: <?php echo $student['roll_no']; ?>
             </div>
         </div>
     </div>

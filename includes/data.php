@@ -26,7 +26,7 @@ $MASTER_SUBJECTS = [
         'C- DICTATION' => ['parent' => '1- ENGLISH'],
         '2- HINDI' => ['is_main' => true], 
         'A- READING ' => ['parent' => '2- HINDI'], 
-        'B- TRANSCRIPTION' => ['parent' => '2- HINDI'], 
+        'B- TRANSCRIPTION ' => ['parent' => '2- HINDI'], 
         'C- DICTATION ' => ['parent' => '2- HINDI'],
         '3- MATHS' => ['is_main' => true], 
         'A- WRITTEN' => ['parent' => '3- MATHS'], 

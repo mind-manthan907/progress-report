@@ -244,7 +244,7 @@ $CO_SCHOLASTIC_AREAS = ['WORKING EDUCATION', 'CLEANNESS', 'HEALTH & PHYSICAL EDU
                 <tr><td>ADDRESS</td><td colspan="3"><?php echo strtoupper($student['address']); ?></td></tr>
             </table>
 
-            <div style="text-align: center; font-size: 12px; font-weight: 900; border: 2.5px solid black; padding: 3px; margin: 3px 0; background: #fff;">ACHOVENMENT RECORD OF ANNUAL-EXAMINATION- (<?php echo $student['academic_year'] ?? $school_details['year']; ?>)</div>
+            <div style="text-align: center; font-size: 12px; font-weight: 900; border: 2.5px solid black; padding: 3px; margin: 3px 0; background: #fff;">ACHIEVEMENT RECORD OF ANNUAL EXAMINATION (<?php echo $student['academic_year'] ?? $school_details['year']; ?>)</div>
             
             <table class="marks-table">
                 <thead>
